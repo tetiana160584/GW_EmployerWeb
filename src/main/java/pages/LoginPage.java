@@ -12,6 +12,15 @@ import java.time.Duration;
 import static configuration.BaseClass.driver;
 
 public class LoginPage {
+    @FindBy(xpath = "//div[@class=\"panel-body\"]")
+    private WebElement signInPanel;
+
+    @FindBy(xpath = "//div[@class=\"error pageLevel\"] ")
+    private WebElement errorPageLevel;
+
+    @FindBy(xpath = "//div[@class=\"error itemLevel\"]//p[@role=\"alert\"]")
+    private WebElement errorItemLevel;
+
     @FindBy(id = "page_header")
     private WebElement headerSignIn;
 
@@ -26,6 +35,8 @@ public class LoginPage {
 
     @FindBy(id = "next")
     private WebElement signInButton;
+
+
 
     public void checkStringText() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
@@ -57,17 +68,37 @@ public class LoginPage {
     }
 
         public void enterEmail () {
-            emailLine.sendKeys("tetiana.kostyhina+12213@gmail.com");
+            emailLine.sendKeys("tetiana.kostyhina+11111@gmail.com");
         }
 
         public void enterPassword () {
             passwordLine.sendKeys("Ktm160584");
         }
 
+    public void enterPasswordParameterized(String password) {
+        passwordLine.clear();
+        passwordLine.sendKeys(password);
+    }
+
         public void clickSignInButton () {
             signInButton.click();
         }
 
-
+        public void waitForSignInPanel() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.visibilityOf(signInPanel));
     }
+
+    public String getErrorMessage(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOf(errorPageLevel));
+        return errorPageLevel.getText();
+    }
+
+
+
+    public void clearEmailLine(){
+        emailLine.clear();
+    }
+}
 
