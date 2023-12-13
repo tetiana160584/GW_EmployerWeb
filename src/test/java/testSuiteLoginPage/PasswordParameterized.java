@@ -8,6 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -21,18 +22,16 @@ import static configuration.BaseClass.driver;
 public class PasswordParameterized extends BaseClass {
     LoginPage loginPage;
     WebElement signInPanel;
-
-
     WebElement headerSignIn;
+
     @BeforeMethod
-    public void openLoginPage(){
+    public void openLoginPage() {
         String siteUrl = "https://polite-stone-09089fb1e.3.azurestaticapps.net/";
         driver.get(siteUrl);
-        loginPage= PageFactory.initElements(driver,pages.LoginPage.class);
-
+        loginPage = PageFactory.initElements(driver, pages.LoginPage.class);
         loginPage.waitForSignInPanel();
-    }
 
+    }
 
     @Test(dataProviderClass = PasswordOptions.class, dataProvider = "getPasswordVariable")
     public void loginWithPasswordParameterized(String password, List<String> expectedErrorMessage) {
@@ -41,12 +40,12 @@ public class PasswordParameterized extends BaseClass {
         loginPage.clickSignInButton();
         loginPage.getErrorMessage();
 
-        // Здесь вы можете добавить проверку для получения сообщения об ошибке
-         String actualErrorMessage = loginPage.getErrorMessage();
-         Assert.assertEquals(actualErrorMessage, expectedErrorMessage.get(0), "The result is not what was expected");
-    }
+        //  проверка для получения сообщения об ошибке
+        String actualErrorMessage = loginPage.getErrorMessage();
+        Assert.assertEquals(actualErrorMessage, expectedErrorMessage.get(0), "The result is not what was expected");
     }
 
+}
 
 
 

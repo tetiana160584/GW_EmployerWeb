@@ -8,7 +8,6 @@ import org.testng.Assert;
 public class Instructions {
     @FindBy(xpath = "//div[@class=\"k-expander-title\" and text()=\"Employee Instructions\"]\n")
     private WebElement headerExpanderEmplInstr;
-
     @FindBy(className = "text")
     private WebElement instrPageSaveAndNextButton;
 

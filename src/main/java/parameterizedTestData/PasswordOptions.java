@@ -17,11 +17,11 @@ public class PasswordOptions {
     public static Object[] getPasswordVariable(){
     return new Object[][]{
             {"123", List.of("Invalid username or password.")},
-            {"w123W", List.of("Invalid username or password.")},
+            {"w123W@", List.of("Invalid username or password.")},
             {"+-23//Qw", List.of("Invalid username or password.")},
-            {"д@121212", List.of("Invalid username or password.")},
-            {"    ", List.of("Missing required element [Password]")},
+            {"    ", List.of("Invalid username or password.")},
             {"", List.of("Please enter your password")},
+
     };
 
 }

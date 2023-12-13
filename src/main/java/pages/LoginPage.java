@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -40,7 +41,7 @@ public class LoginPage {
 
     public void checkStringText() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.visibilityOf(headerSignIn));// Ожидаем, что визард станет видимы
+        wait.until(ExpectedConditions.visibilityOf(headerSignIn));// Ожидаем, что визард логина станет видимы
 
         String expectedTextSignIn = "Sign In";
         String expectedTextForgotPassword = "Forgot your password?";
@@ -89,13 +90,28 @@ public class LoginPage {
         wait.until(ExpectedConditions.visibilityOf(signInPanel));
     }
 
-    public String getErrorMessage(){
+//    public String getErrorMessage(){
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        wait.until(ExpectedConditions.visibilityOf(errorPageLevel));
+//        return errorPageLevel.getText();
+//    }
+
+    public String getErrorMessage() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOf(errorPageLevel));
-        return errorPageLevel.getText();
+        // Проверяем, виден ли элемент errorPageLevel
+        try {
+            wait.until(ExpectedConditions.visibilityOf(errorPageLevel));
+            return errorPageLevel.getText();
+        } catch (TimeoutException e) {
+            // Если элемент errorPageLevel не виден, значит, сообщение находится в элементе errorItemLevel
+            wait.until(ExpectedConditions.visibilityOf(errorItemLevel));
+            return errorItemLevel.getText();
+        }
     }
 
-
+    public void clearPasswordLine(){
+        passwordLine.clear();
+}
 
     public void clearEmailLine(){
         emailLine.clear();

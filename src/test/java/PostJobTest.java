@@ -133,8 +133,25 @@ public class PostJobTest extends BaseClass {
     public void testClickSkipButton(){
         candidatesPage.clickSkipButton();
     }
-    @Test(priority = 19,dependsOnMethods = {"testClickSkipButton"})
+
+    @Test(priority = 19, dependsOnMethods = {"testClickSkipButton"})
+    public void testCheckElements(){
+        publishPage.checkElements();
+    }
+
+    @Test(priority = 20)
     public void testClickPublishButton(){
         publishPage.clickPublishButton();
     }
+
+    @Test(priority = 21)
+    public void testClickCancelJobButton(){
+        publishPage.clickCancelJobButton();
+    }
+    @Test(priority = 22)
+    public void testCheckConfirmPopup(){
+        publishPage.checkCancelConfirmPopup();
+        publishPage.clickYesCancelJob();
+    }
+
 }
